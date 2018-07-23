@@ -1,7 +1,6 @@
 import React from 'react'
 import NotificationSystem from "react-notification-system";
 import {Modal} from 'semantic-ui-react'
-import Icon from "./Icon";
 
 const notifyRef = React.createRef()
 
@@ -26,6 +25,7 @@ class ShellOutput extends React.Component {
         super(props)
         this.state = {open: false, lines: []}
         this.messagesEnd = React.createRef()
+
     }
 
     start() {
@@ -38,9 +38,12 @@ class ShellOutput extends React.Component {
 
     print(line) {
         this.setState({open: true, lines: [...this.state.lines, line]})
-        this.messagesEnd.current.scrollIntoView({behavior: "smooth"});
     }
 
+    componentDidUpdate() {
+        if (this.state.open)
+            this.messagesEnd.current.scrollIntoView({behavior: "smooth"})
+    }
     render() {
         return <Modal open={this.state.open}
                       size="fullscreen"
@@ -60,7 +63,6 @@ class ShellOutput extends React.Component {
 }
 //    "Content-Type": "text/plain; charset\u003dutf-8"
 export class ShellManager extends React.Component {
-
     render() {
         return <ShellOutput ref={shellRef}/>
     }

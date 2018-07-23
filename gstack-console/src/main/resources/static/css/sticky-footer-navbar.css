@@ -138,3 +138,15 @@ table.files tr:hover td.actions a.link {
     align-items:center;
     color: #ddd
 }
+
+.record-item .hover.show {
+    display: none;
+}
+
+.record-item:hover .hover.show {
+    display: initial;
+}
+
+.record-item:hover .hover.show .link {
+    margin-left: 10px;
+}

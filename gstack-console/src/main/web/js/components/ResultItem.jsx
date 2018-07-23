@@ -1,18 +1,27 @@
 import React from 'react'
 import {Card} from "semantic-ui-react";
 import Icon from "./Icon";
+import {openShell, printShell} from "./Contexts";
+
 
 class ResultItem extends React.Component {
-    render() {
-        let {shell, succeeded} = this.props
-        return <Card fluid color={succeeded ? 'greed' : 'red'}>
-            <Card.Content>
 
-                <Card.Meta><Icon name="terminal"/> {shell}</Card.Meta>
-                <div content="right floated">
-                    <a href="#"><Icon name="pie-chart"/></a>
-                    <a href="#"><Icon name="camera"/></a>
+    showShell(e) {
+        e.preventDefault()
+        let {output, shell} = this.props
+        printShell(shell)
+        printShell(output)
+    }
+
+    render() {
+        let {shell, succeeded, report} = this.props
+        return <Card fluid color={succeeded ? 'greed' : 'red'} className="record-item">
+            <Card.Content>
+                <div className="right floated hover show">
+                    <a href={`${report}/index.html`} className="link" target="_blank"><Icon name="pie-chart"/></a>
+                    <a href="#" className="link" onClick={this.showShell.bind(this)}><Icon name="camera"/></a>
                 </div>
+                <Card.Meta><Icon name="terminal"/> {shell}</Card.Meta>
             </Card.Content>
         </Card>
     }
