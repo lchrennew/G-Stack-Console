@@ -7,9 +7,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/gstack-console/pom.xml" />
-        <option value="$PROJECT_DIR$/gstack-suite-parser/target/maven-archiver/pom.properties" />
         <option value="$PROJECT_DIR$/gstack-suite-parser/pom.xml" />
         <option value="$PROJECT_DIR$/gstack-console-api/pom.xml" />
+        <option value="$PROJECT_DIR$/gstack-console-reports/pom.xml" />
+        <option value="$PROJECT_DIR$/gstack-web-utils/pom.xml" />
       </list>
     </option>
   </component>

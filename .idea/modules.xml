@@ -4,8 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/gstack-console/gstack-console.iml" filepath="$PROJECT_DIR$/gstack-console/gstack-console.iml" />
       <module fileurl="file://$PROJECT_DIR$/gstack-console-api/gstack-console-api.iml" filepath="$PROJECT_DIR$/gstack-console-api/gstack-console-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gstack-console-reports/gstack-console-reports.iml" filepath="$PROJECT_DIR$/gstack-console-reports/gstack-console-reports.iml" />
       <module fileurl="file://$PROJECT_DIR$/gstack-suite-parser/gstack-suite-parser.iml" filepath="$PROJECT_DIR$/gstack-suite-parser/gstack-suite-parser.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gstack-suite-parser/target/maven-archiver/maven-archiver.iml" filepath="$PROJECT_DIR$/gstack-suite-parser/target/maven-archiver/maven-archiver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gstack-web-utils/gstack-web-utils.iml" filepath="$PROJECT_DIR$/gstack-web-utils/gstack-web-utils.iml" />
     </modules>
   </component>
 </project>

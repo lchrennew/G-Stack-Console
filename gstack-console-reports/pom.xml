@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>chun.li</groupId>
-    <artifactId>gstack-console</artifactId>
+    <artifactId>gstack-console-reports</artifactId>
     <version>1.0.0</version>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>

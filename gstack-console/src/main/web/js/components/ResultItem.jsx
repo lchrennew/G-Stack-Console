@@ -18,7 +18,7 @@ class ResultItem extends React.Component {
         return <Card fluid color={succeeded ? 'greed' : 'red'} className="record-item">
             <Card.Content>
                 <div className="right floated hover show">
-                    <a href={`${report}/index.html`} className="link" target="_blank"><Icon name="pie-chart"/></a>
+                    <a href={`//localhost:8084/${report}/index.html`} className="link" target="_blank"><Icon name="pie-chart"/></a>
                     <a href="#" className="link" onClick={this.showShell.bind(this)}><Icon name="camera"/></a>
                 </div>
                 <Card.Meta><Icon name="terminal"/> {shell}</Card.Meta>

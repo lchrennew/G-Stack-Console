@@ -8,8 +8,9 @@
         <outputRelativeToContentRoot value="true" />
         <module name="gstack-console" />
         <module name="gstack-console-api" />
+        <module name="gstack-console-reports" />
         <module name="gstack-suite-parser" />
-        <module name="maven-archiver" />
+        <module name="gstack-web-utils" />
         <module name="maven-archiver (1)" />
         <module name="maven-archiver (2)" />
       </profile>
@@ -17,7 +18,9 @@
     <bytecodeTargetLevel>
       <module name="gstack-console" target="9" />
       <module name="gstack-console-api" target="9" />
+      <module name="gstack-console-reports" target="9" />
       <module name="gstack-suite-parser" target="1.8" />
+      <module name="gstack-web-utils" target="1.8" />
       <module name="maven-archiver" target="1.5" />
       <module name="maven-archiver (1)" target="1.5" />
       <module name="maven-archiver (2)" target="1.5" />

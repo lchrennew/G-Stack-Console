@@ -1,6 +1,7 @@
 package chun.li.GStack.Console;
 
 
+import chun.li.GStack.web.utils.RegexPathMatcher;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
