@@ -6,8 +6,10 @@ import {
     Container,
     Dropdown,
     Image,
-    Menu,
+    Menu, Sticky,
 } from 'semantic-ui-react'
+import Icon from "./Icon";
+import {CartEntry} from "./Contexts";
 
 
 class Header extends React.Component {
@@ -19,24 +21,9 @@ class Header extends React.Component {
                     Project Name
                 </Menu.Item>
                 <Link className="item" to="/">Home</Link>
-
-                <Dropdown item simple text='Dropdown'>
-                    <Dropdown.Menu>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                        <Dropdown.Divider/>
-                        <Dropdown.Header>Header Item</Dropdown.Header>
-                        <Dropdown.Item>
-                            <i className='dropdown icon'/>
-                            <span className='text'>Submenu</span>
-                            <Dropdown.Menu>
-                                <Dropdown.Item>List Item</Dropdown.Item>
-                                <Dropdown.Item>List Item</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown.Item>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
+                <CartEntry className="item">
+                    <Icon name="shopping-cart"/>
+                </CartEntry>
             </Container>
         </Menu>
     }

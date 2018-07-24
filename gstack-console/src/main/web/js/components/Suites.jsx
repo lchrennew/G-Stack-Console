@@ -4,6 +4,7 @@ import SuiteItem from "./SuiteItem";
 import { Card } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import CreateSuiteCard from "./CreateSuiteCard";
+import Placeholder from "./Placeholder";
 
 const mapDispatchToProps = dispatch => {
     return {}
@@ -18,7 +19,7 @@ const mapStateToProps = (state, props) => {
 class Suites extends React.Component {
     render() {
         let {suites} = this.props
-        return <Main>
+        return <Placeholder>
             <h1 className="mt-5">Test Suites</h1>
             <div className="row">
                 <div className="col">
@@ -30,7 +31,7 @@ class Suites extends React.Component {
                     </Card.Group>
                 </div>
             </div>
-        </Main>
+        </Placeholder>
     }
 }
 

@@ -5,12 +5,13 @@ import IndexProvider from "./IndexProvider";
 import {Breadcrumb, Divider, Grid} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import Icon from "./Icon";
+import Placeholder from "./Placeholder";
 
 class Suite extends React.Component {
 
     render() {
         let {match: {params: {suite}}} = this.props
-        return <Main>
+        return <Placeholder>
             <Breadcrumb size="huge">
                 <Icon name="box" size={24}/> <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
                 <Breadcrumb.Divider>/</Breadcrumb.Divider>
@@ -25,7 +26,7 @@ class Suite extends React.Component {
                 </div>
                 <Divider hidden/>
             </IndexProvider>
-        </Main>
+        </Placeholder>
 
     }
 }

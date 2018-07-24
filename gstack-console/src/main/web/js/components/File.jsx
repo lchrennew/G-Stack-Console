@@ -1,10 +1,8 @@
 import React from "react";
-import Main from "./Main";
 import IndexProvider from "./IndexProvider";
 import ScenarioList from "./ScenarioList";
 import {SpecTitle} from "./SpecProvider";
 import {Link} from "react-router-dom";
-import {ParentLink} from "./ParentDirItem";
 import {Breadcrumb, Divider} from "semantic-ui-react";
 import Placeholder from "./Placeholder";
 import Icon from "./Icon";
@@ -22,7 +20,7 @@ class File extends React.Component {
     render() {
         let {match: {params: {suite}}} = this.props
         let segs = this.getDir().split('/')
-        return <Main>
+        return <Placeholder>
             <Breadcrumb size="huge">
                 <Icon name="box" size={24}/> <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
                 <Breadcrumb.Divider>/</Breadcrumb.Divider>
@@ -47,7 +45,7 @@ class File extends React.Component {
                 </div>
                 <Divider hidden/>
             </IndexProvider>
-        </Main>
+        </Placeholder>
     }
 }
 

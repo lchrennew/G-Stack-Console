@@ -9,6 +9,8 @@ import Footer from "./Footer";
 import Suites from "./Suites";
 import SuitesProvider from "./SuitesProvider";
 import Logs from "./Logs";
+import Main from "./Main";
+import {CartContext} from "./Contexts";
 
 
 class Index extends React.Component {
@@ -25,15 +27,17 @@ class Index extends React.Component {
     render() {
         return <App>
             <Header/>
-            <SuitesProvider>
-                <Switch>
-                    <Route path="/:suite/tree/:dir" component={Directory}/>
-                    <Route path="/:suite/clob/:dir" component={File}/>
-                    <Route path="/:suite/logs" component={Logs}/>
-                    <Route path="/:suite" component={Suite}/>
-                    <Route path="/" component={Suites}/>
-                </Switch>
-            </SuitesProvider>
+            <CartContext>
+                <SuitesProvider>
+                    <Switch>
+                        <Route path="/:suite/tree/:dir" component={Directory}/>
+                        <Route path="/:suite/clob/:dir" component={File}/>
+                        <Route path="/:suite/logs" component={Logs}/>
+                        <Route path="/:suite" component={Suite}/>
+                        <Route path="/" component={Suites}/>
+                    </Switch>
+                </SuitesProvider>
+            </CartContext>
             <Footer/>
         </App>
     }

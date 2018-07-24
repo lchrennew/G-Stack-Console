@@ -42,7 +42,7 @@ class ScenarioItem extends React.Component {
             <Table.Cell className="message"><Tags tags={tags}/></Table.Cell>
             <Table.Cell className="actions">
                 <ExecuteButton suite={suite} path={this.buildLink(['.'])} title={`场景:${title}`}/>
-                <a href="#" className="link"><Icon name="clock"/></a>
+                <a href="#" className="link"><Icon name="shopping-cart"/></a>
             </Table.Cell>
         </Table.Row>
     }

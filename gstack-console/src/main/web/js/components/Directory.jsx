@@ -1,8 +1,7 @@
-import React from "react";
-import Main from "./Main";
+import React from "react"
 import VisibleDir from "./VisibleDir";
 import IndexProvider from "./IndexProvider";
-import {Breadcrumb, Divider, Grid, GridRow} from "semantic-ui-react";
+import {Breadcrumb, Divider} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import Placeholder from "./Placeholder";
 import Icon from "./Icon";
@@ -19,7 +18,7 @@ class Directory extends React.Component {
     render() {
         let {match: {params: {suite}}} = this.props
         let segs = this.getDir().split('/')
-        return <Main>
+        return <Placeholder>
             <Breadcrumb size="huge">
                 <Icon name="box" size={24}/> <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
                 <Breadcrumb.Divider>/</Breadcrumb.Divider>
@@ -42,7 +41,7 @@ class Directory extends React.Component {
                 <Divider hidden/>
             </IndexProvider>
 
-        </Main>
+        </Placeholder>
     }
 }
 
