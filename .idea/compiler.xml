@@ -11,6 +11,7 @@
         <module name="gstack-console-reports" />
         <module name="gstack-suite-parser" />
         <module name="gstack-web-utils" />
+        <module name="gstack-workspace" />
         <module name="maven-archiver (1)" />
         <module name="maven-archiver (2)" />
       </profile>
@@ -21,6 +22,7 @@
       <module name="gstack-console-reports" target="9" />
       <module name="gstack-suite-parser" target="1.8" />
       <module name="gstack-web-utils" target="1.8" />
+      <module name="gstack-workspace" target="1.8" />
       <module name="maven-archiver" target="1.5" />
       <module name="maven-archiver (1)" target="1.5" />
       <module name="maven-archiver (2)" target="1.5" />

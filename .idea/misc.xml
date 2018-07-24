@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/gstack-console-api/pom.xml" />
         <option value="$PROJECT_DIR$/gstack-console-reports/pom.xml" />
         <option value="$PROJECT_DIR$/gstack-web-utils/pom.xml" />
+        <option value="$PROJECT_DIR$/../G-Stack/gstack-workspace/pom.xml" />
       </list>
     </option>
   </component>
