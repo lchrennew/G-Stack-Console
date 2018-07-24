@@ -15,7 +15,7 @@ class ResultItem extends React.Component {
 
     render() {
         let {shell, succeeded, report} = this.props
-        return <Card fluid color={succeeded ? 'greed' : 'red'} className="record-item">
+        return <Card fluid color={succeeded ? 'green' : 'red'} className="record-item">
             <Card.Content>
                 <div className="right floated hover show">
                     <a href={`//localhost:8084/${report}/index.html`} className="link" target="_blank"><Icon name="pie-chart"/></a>
