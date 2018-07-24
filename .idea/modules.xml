@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/gstack-console-reports/gstack-console-reports.iml" filepath="$PROJECT_DIR$/gstack-console-reports/gstack-console-reports.iml" />
       <module fileurl="file://$PROJECT_DIR$/gstack-suite-parser/gstack-suite-parser.iml" filepath="$PROJECT_DIR$/gstack-suite-parser/gstack-suite-parser.iml" />
       <module fileurl="file://$PROJECT_DIR$/gstack-web-utils/gstack-web-utils.iml" filepath="$PROJECT_DIR$/gstack-web-utils/gstack-web-utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../G-Stack/gstack-workspace/gstack-workspace.iml" filepath="$PROJECT_DIR$/../G-Stack/gstack-workspace/gstack-workspace.iml" />
     </modules>
   </component>
 </project>
