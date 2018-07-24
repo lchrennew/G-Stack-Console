@@ -5,6 +5,7 @@ import IndexProvider from "./IndexProvider";
 import {Breadcrumb, Divider, Grid, GridRow} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import Placeholder from "./Placeholder";
+import Icon from "./Icon";
 
 class Directory extends React.Component {
 
@@ -20,7 +21,7 @@ class Directory extends React.Component {
         let segs = this.getDir().split('/')
         return <Main>
             <Breadcrumb size="huge">
-                <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
+                <Icon name="box" size={24}/> <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
                 <Breadcrumb.Divider>/</Breadcrumb.Divider>
                 {
                     segs.map((path, k) => <Placeholder key={k}>

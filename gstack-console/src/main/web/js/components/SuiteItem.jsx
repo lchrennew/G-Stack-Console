@@ -11,6 +11,8 @@ class SuiteItem extends React.Component {
         return <Card>
             <Card.Content>
                 <Card.Header className="card-title">{title}</Card.Header>
+            </Card.Content>
+            <Card.Content extra>
                 <div className="ui three buttons">
                     <Link to={title} className="ui basic large button">
                         <Icon name="box" size={24}/></Link>

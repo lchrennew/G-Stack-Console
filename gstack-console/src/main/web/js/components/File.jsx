@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {ParentLink} from "./ParentDirItem";
 import {Breadcrumb, Divider} from "semantic-ui-react";
 import Placeholder from "./Placeholder";
+import Icon from "./Icon";
 
 
 class File extends React.Component {
@@ -23,7 +24,7 @@ class File extends React.Component {
         let segs = this.getDir().split('/')
         return <Main>
             <Breadcrumb size="huge">
-                <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
+                <Icon name="box" size={24}/> <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
                 <Breadcrumb.Divider>/</Breadcrumb.Divider>
                 {
                     segs.map((path, k) => k + 1 < segs.length ? <Placeholder key={k}>
