@@ -139,11 +139,11 @@ table.files tr:hover td.actions a.link {
     color: #ddd
 }
 
-* > .hover.show {
+* > .hover.show, .item .hover.show {
     display: none;
 }
 
-*:hover > .hover.show {
+*:hover > .hover.show, .item:hover .hover.show {
     display: initial;
 }
 

@@ -23,6 +23,7 @@ import {
 } from 'semantic-ui-react'
 import Icon from "./Icon";
 import Main from "./Main";
+import {Link} from "react-router-dom";
 
 const notifyRef = React.createRef()
 
@@ -91,10 +92,66 @@ export class ShellManager extends React.Component {
     }
 }
 
+
+class CartItem extends React.Component {
+    render() {
+        const {type, title, href, labels = []} = this.props
+        const icons = {
+            suite: 'box',
+            dir: 'folder',
+            file: 'file',
+            scenario: 'activity'
+        }
+        return <Item>
+            <Item.Content>
+                <Item.Meta>
+                    <div className="right floated hover show">
+                        <a className="link">
+                            <Icon name="trash"/>
+                        </a>
+                    </div>
+                    <Link to={href}>
+                        <Icon name={icons[type]}/> {title}
+                    </Link>
+                </Item.Meta>
+                <Item.Extra>
+                    {
+                        labels.map((label, i) => {
+                            return <Label as={Link} to={label.href} key={i}>
+                                <Icon name={icons[label.type]}
+                                      size={13}/> {label.title}</Label>
+                        })
+                    }
+                </Item.Extra>
+            </Item.Content>
+        </Item>
+    }
+
+}
+
+class CartMenu extends React.Component {
+    render() {
+        return <Menu fixed='top'>
+            <Menu.Item header><Icon name="shopping-cart" size={28}/></Menu.Item>
+            <Menu.Menu position='right'>
+                <Dropdown icon={<Icon name="more-vertical"/>} item>
+                    <Dropdown.Menu>
+                        <Dropdown.Header>Favorates</Dropdown.Header>
+                        <Dropdown.Item>
+                            <Icon name="star"/> Add to favorates
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </Menu.Menu>
+        </Menu>
+    }
+}
+
 const cartRef = React.createRef()
 
 export const openCart = () => cartRef.current && cartRef.current.open()
 export const toggleCart = () => cartRef.current && cartRef.current.toggle()
+
 
 class CartComponent extends React.Component {
     constructor(props) {
@@ -116,6 +173,64 @@ class CartComponent extends React.Component {
 
     render() {
         const {visible} = this.state
+        const items = [
+            {
+                title: 'suite1',
+                type: 'suite',
+                href: '#suite1'
+            },
+            {
+                title: 'dir',
+                type: 'dir',
+                href: '#dir',
+                labels: [
+                    {
+                        title: 'suite1',
+                        type: 'suite',
+                        href: '#suite1'
+                    },
+                ]
+            },
+            {
+                title: 'file',
+                type: 'file',
+                href: '#file',
+                labels: [
+                    {
+                        title: 'suite1',
+                        type: 'suite',
+                        href: '#suite1'
+                    },
+                    {
+                        title: 'dir',
+                        type: 'dir',
+                        href: '#dir',
+                    },
+                ]
+            },
+            {
+                title: 'scenario',
+                type: 'scenario',
+                href: '#scenario',
+                labels: [
+                    {
+                        title: 'suite1',
+                        type: 'suite',
+                        href: '#suite1'
+                    },
+                    {
+                        title: 'dir',
+                        type: 'dir',
+                        href: '#dir',
+                    },
+                    {
+                        title: 'file',
+                        type: 'file',
+                        href: '#file',
+                    },
+                ]
+            },
+        ]
         return <Sidebar.Pushable as={Main}>
             <Sidebar
                 as={Segment}
@@ -127,91 +242,14 @@ class CartComponent extends React.Component {
                 duration={1000}
                 className="cart-bar"
             >
-                <Menu fixed='top'>
-                    <Menu.Item header><Icon name="shopping-cart" size={28}/></Menu.Item>
-                    <Menu.Menu position='right'>
-                        <Dropdown icon={<Icon name="more-vertical"/>} item>
-                            <Dropdown.Menu>
-                                <Dropdown.Header>Favorates</Dropdown.Header>
-                                <Dropdown.Item>
-                                    <Icon name="star"/> Add to favorates
-                                </Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Menu.Menu>
-                </Menu>
+                <CartMenu/>
 
                 <Item.Group divided>
-                    <Item>
-                        <Item.Content>
-
-                            <Item.Meta>
-                                <div className="right floated hover show">
-                                    <a className="link">
-                                        <Icon name="trash"/>
-                                    </a>
-                                </div>
-                                <a href="">
-                                    <Icon name="box"/> suite1
-                                </a>
-                            </Item.Meta>
-                            <Item.Extra>
-
-                            </Item.Extra>
-                        </Item.Content>
-                    </Item>
-                    <Item>
-                        <Item.Content>
-                            <Item.Meta>
-                                <div className="right floated hover show">
-                                    <a className="link">
-                                        <Icon name="trash"/>
-                                    </a>
-                                </div>
-                                <a href=""><Icon name="folder"/> specs/dir</a>
-                            </Item.Meta>
-                            <Item.Extra>
-                                <Label as='a'><Icon name="box" size={13}/> suite1</Label>
-                            </Item.Extra>
-                        </Item.Content>
-                    </Item>
-                    <Item>
-                        <Item.Content>
-                            <Item.Meta>
-                                <div className="right floated hover show">
-                                    <a className="link">
-                                        <Icon name="trash"/>
-                                    </a>
-                                </div>
-                                <a href="">
-                                    <Icon name="file"/> specs/dir/file.spec
-                                </a>
-                            </Item.Meta>
-                            <Item.Extra>
-                                <Label as="a"><Icon name="box" size={13}/> suite1</Label>
-                                <Label as="a"><Icon name="folder" size={13}/> dir</Label>
-                            </Item.Extra>
-                        </Item.Content>
-                    </Item>
-                    <Item>
-                        <Item.Content>
-                            <Item.Meta>
-                                <div className="right floated hover show">
-                                    <a className="link">
-                                        <Icon name="trash"/>
-                                    </a>
-                                </div>
-                                <a href="">
-                                    <Icon name="activity"/> Cart should be empty
-                                </a>
-                            </Item.Meta>
-                            <Item.Extra>
-                                <Label as="a"><Icon name="box" size={13}/> suite1</Label>
-                                <Label as="a"><Icon name="folder" size={13}/> dir</Label>
-                                <Label as="a"><Icon name="file" size={13}/> spec.spec</Label>
-                            </Item.Extra>
-                        </Item.Content>
-                    </Item>
+                    {
+                        items.map((item, i) => {
+                            return <CartItem key={i} {...item} />
+                        })
+                    }
                 </Item.Group>
                 <Divider/>
                 <Button basic><Icon name="play"/></Button>
