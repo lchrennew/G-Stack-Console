@@ -6,6 +6,7 @@ import ExecuteButton from "./ExecuteButton";
 import Tags from "./Tags";
 import DirLink from "./DirLink";
 import { Table } from 'semantic-ui-react'
+import AddToCart from "./AddToCart";
 
 class DirItem extends React.Component {
     buildLink(prefix) {
@@ -30,14 +31,38 @@ class DirItem extends React.Component {
         // itemtype: folder => /tree/**
         // itemtype: file => /clob/**
         let {name, itemtype, tags = [], match: {params: {suite}}} = this.props
-        let link = this.getLink()
+        let link = this.getLink(), path = this.buildLink([])
+        const item = {
+            title: name,
+            href: link,
+            option: {
+                suite,
+                path: this.buildLink([]),
+            },
+            type: itemtype,
+            labels: itemtype === 'folder' || path.lastIndexOf('/') < 0 ? [
+                    {type: 'suite', title: suite, href: `/${suite}`},
+                ] :
+                [
+                    {type: 'suite', title: suite, href: `/${suite}`},
+                    {
+                        type: 'folder',
+                        title: path.substr(0, path.lastIndexOf('/')),
+                        href: `/${suite}/tree/${path.substr(0, path.lastIndexOf('/'))}`,
+                    },
+                ]
+        }
         return <Table.Row>
             <Table.Cell scope="row" className="icon"><Icon name={itemtype}/></Table.Cell>
             <Table.Cell className="content"><DirLink to={link} dir={name}/></Table.Cell>
             <Table.Cell className="message"><Tags tags={tags}/></Table.Cell>
             <Table.Cell className="actions">
-                <ExecuteButton suite={suite} path={this.buildLink([])} title={`${itemtype}:${name}`}/>
-                <a href="#" className="link"><Icon name="shopping-cart"/></a>
+                <ExecuteButton suite={suite} path={path} title={`${itemtype}:${name}`}/>
+                <AddToCart className="link"
+                           item={item}
+                >
+                    <Icon name="shopping-cart"/>
+                </AddToCart>
             </Table.Cell>
         </Table.Row>
     }

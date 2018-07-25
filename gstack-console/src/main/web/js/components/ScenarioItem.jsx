@@ -5,6 +5,7 @@ import {withRouter} from "react-router-dom";
 import ExecuteButton from "./ExecuteButton";
 import Tags from "./Tags";
 import {Table} from 'semantic-ui-react'
+import AddToCart from "./AddToCart";
 //
 // const mapDispatchToProps = dispatch => {
 //     return {
@@ -23,7 +24,7 @@ class ScenarioItem extends React.Component {
         await executeScenario(suite, path)
     }
 
-    buildLink(prefix) {
+    buildLink(prefix = []) {
         let {match: {isExact, params: {dir}, url}, location: {pathname}, lineNumber} = this.props
 
         let body = dir ?
@@ -36,13 +37,49 @@ class ScenarioItem extends React.Component {
     }
     render() {
         let {title, tags, match: {params: {suite}}} = this.props
+        let path = this.buildLink()
+        const item = {
+            title,
+            href: this.props.location.pathname,
+            option: {
+                suite,
+                path: this.buildLink([]),
+            },
+            type: 'scenario',
+            labels: path.lastIndexOf('/') < 0 ?
+                [
+                    {title: suite, href: `/${suite}`, type: 'suite'},
+                    {
+                        title: path.substr(0, path.lastIndexOf(':')),
+                        href: this.props.location.pathname,
+                        type: 'file'
+                    }
+                ] :
+                [
+                    {title: suite, href: `/${suite}`, type: 'suite'},
+                    {
+                        title: path.substr(0, path.lastIndexOf('/')),
+                        href: `/${suite}/tree/${path.substr(0, path.lastIndexOf('/'))}`,
+                        type: 'folder'
+                    },
+                    {
+                        title: path.substr(0, path.lastIndexOf(':')).substr(path.lastIndexOf('/') + 1),
+                        href: this.props.location.pathname,
+                        type: 'file'
+                    }
+                ]
+        }
         return <Table.Row>
             <Table.Cell scope="row" className="icon"><Icon name="activity"/></Table.Cell>
             <Table.Cell className="content">{title}</Table.Cell>
             <Table.Cell className="message"><Tags tags={tags}/></Table.Cell>
             <Table.Cell className="actions">
-                <ExecuteButton suite={suite} path={this.buildLink(['.'])} title={`场景:${title}`}/>
-                <a href="#" className="link"><Icon name="shopping-cart"/></a>
+                <ExecuteButton suite={suite} path={this.buildLink()} title={`场景:${title}`}/>
+                <AddToCart className="link"
+                           item={item}
+                >
+                    <Icon name="shopping-cart"/>
+                </AddToCart>
             </Table.Cell>
         </Table.Row>
     }

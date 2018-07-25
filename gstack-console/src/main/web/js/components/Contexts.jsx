@@ -24,6 +24,9 @@ import {
 import Icon from "./Icon";
 import Main from "./Main";
 import {Link} from "react-router-dom";
+import CartItem from "./CartItem";
+import CartItemList from "./CartItemList";
+import VisibleCartItems from "./VisibleCartItems";
 
 const notifyRef = React.createRef()
 
@@ -93,41 +96,6 @@ export class ShellManager extends React.Component {
 }
 
 
-class CartItem extends React.Component {
-    render() {
-        const {type, title, href, labels = []} = this.props
-        const icons = {
-            suite: 'box',
-            dir: 'folder',
-            file: 'file',
-            scenario: 'activity'
-        }
-        return <Item>
-            <Item.Content>
-                <Item.Meta>
-                    <div className="right floated hover show">
-                        <a className="link">
-                            <Icon name="trash"/>
-                        </a>
-                    </div>
-                    <Link to={href}>
-                        <Icon name={icons[type]}/> {title}
-                    </Link>
-                </Item.Meta>
-                <Item.Extra>
-                    {
-                        labels.map((label, i) => {
-                            return <Label as={Link} to={label.href} key={i}>
-                                <Icon name={icons[label.type]}
-                                      size={13}/> {label.title}</Label>
-                        })
-                    }
-                </Item.Extra>
-            </Item.Content>
-        </Item>
-    }
-
-}
 
 class CartMenu extends React.Component {
     render() {
@@ -243,13 +211,8 @@ class CartComponent extends React.Component {
                 className="cart-bar"
             >
                 <CartMenu/>
-
                 <Item.Group divided>
-                    {
-                        items.map((item, i) => {
-                            return <CartItem key={i} {...item} />
-                        })
-                    }
+                    <VisibleCartItems/>
                 </Item.Group>
                 <Divider/>
                 <Button basic><Icon name="play"/></Button>

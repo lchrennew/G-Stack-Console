@@ -42,4 +42,15 @@ const results = (state = {list: null}, action) => {
     }
 }
 
-export default combineReducers({index, suites, results,})
+const cart = (state = {list: []}, action) => {
+    switch (action.type) {
+        case 'ADD_TO_CART':
+            return {list: [...state.list, action.item]}
+        case 'REMOVE_FROM_CART':
+            return {list: state.list.filter(item => item.key !== action.key)}
+        default:
+            return state
+    }
+}
+
+export default combineReducers({index, suites, results, cart})

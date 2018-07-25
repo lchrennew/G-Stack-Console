@@ -3,11 +3,22 @@ import {Link} from "react-router-dom";
 import {Button, Card} from 'semantic-ui-react'
 import ExecuteButton from "./ExecuteButton";
 import Icon from "./Icon";
+import AddToCart from "./AddToCart";
+import {withRouter} from 'react-router-dom'
 
 
 class SuiteItem extends React.Component {
     render() {
-        let {title, description} = this.props
+        const {title, description} = this.props
+        const item = {
+            title,
+            href: this.props.location.pathname,
+            option: {
+                suite: title,
+                path: '',
+            },
+            type: 'suite',
+        }
         return <Card>
             <Card.Content>
                 <Card.Header className="card-title"><Link to={title}>
@@ -15,9 +26,9 @@ class SuiteItem extends React.Component {
             </Card.Content>
             <Card.Content extra>
                 <div className="ui three buttons">
-                    <a className="ui basic large button">
+                    <AddToCart className="ui basic large button" item={item}>
                         <Icon name="shopping-cart" size={24}/>
-                    </a>
+                    </AddToCart>
                     <Link to={`${title}/logs`} className="ui basic large button">
                         <Icon name="clock" size={24}/>
                     </Link>
@@ -29,4 +40,4 @@ class SuiteItem extends React.Component {
     }
 }
 
-export default SuiteItem
+export default withRouter(SuiteItem)

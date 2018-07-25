@@ -194,3 +194,24 @@ export const fetchResults = suite => (dispatch, getState) => {
     }
     else return Promise.resolve()
 }
+
+/*************************
+ 购物车
+ ***************************/
+let cartKey = 0
+export const addToCart = item => dispatch => {
+    let {title, href, type, path, labels} = item
+    return dispatch({
+        type: 'ADD_TO_CART',
+        item: {
+            title, href, type, path, labels, key: cartKey++
+        }
+    })
+}
+
+export const removeFromCart = key => dispatch => {
+    return dispatch({
+        type: 'REMOVE_FROM_CART',
+        key
+    })
+}
