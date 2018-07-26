@@ -100,40 +100,10 @@ export class ShellManager extends React.Component {
 
 
 
-class CartMenu extends React.Component {
-    render() {
-        return <Menu fixed='top'>
-            <Menu.Item header><Icon name="shopping-cart" size={28}/></Menu.Item>
-            <Menu.Menu position='right'>
-                <Dropdown icon={<Icon name="more-vertical"/>} item>
-                    <Dropdown.Menu>
-                        <Dropdown.Header>Favorates</Dropdown.Header>
-                        <Dropdown.Item>
-                            <Icon name="star"/> Add to favorates
-                        </Dropdown.Item>
-                    </Dropdown.Menu>
-                </Dropdown>
-            </Menu.Menu>
-        </Menu>
-    }
-}
 
-class CartSidebar extends React.Component {
-    render() {
-        const {suite} = this.props
-        return <Placeholder>
-            <CartMenu/>
-            <Item.Group divided>
-                <VisibleCartItems suite={suite}/>
-            </Item.Group>
-            <Divider/>
-            <CartExecuteButton suite={suite}/>
-        </Placeholder>
-    }
-}
 
 const sidebarRef = React.createRef()
-export const openSidebar = sidebarRef.current && sidebarRef.current.open(sidebar)
+export const openSidebar = sidebar => sidebarRef.current && sidebarRef.current.open(sidebar)
 
 class SidebarComponent extends React.Component {
     constructor(props) {

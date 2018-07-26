@@ -1,6 +1,7 @@
 import React from 'react'
 import {withRouter} from "react-router-dom";
 import {openSidebar} from "./Contexts";
+import CartSidebar from "./CartSidebar";
 
 const openCart = (suite) => openSidebar(
     <CartSidebar suite={suite}/>

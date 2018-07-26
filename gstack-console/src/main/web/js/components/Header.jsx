@@ -9,9 +9,9 @@ import {
     Menu,
 } from 'semantic-ui-react'
 import Icon from "./Icon";
-import {CartEntry} from "./Contexts";
 import Placeholder from "./Placeholder";
 import LogsEntry from "./LogsEntry";
+import CartEntry from "./CartEntry";
 
 class SuiteMenuItems extends React.Component {
     render() {
