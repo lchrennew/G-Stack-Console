@@ -18,6 +18,7 @@ class CartExecuteButton extends React.Component {
         const {suite, paths} = this.props
         return <ExecuteButton
             className="ui basic button"
+            title="Cart"
             {...{suite, paths}}/>
     }
 }
