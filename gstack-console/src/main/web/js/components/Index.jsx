@@ -1,16 +1,13 @@
 import React from 'react'
 import {Route, Switch} from "react-router-dom";
 import Suite from "./Suite";
-import Directory from "./Directory";
-import File from './File';
-import App from "./App";
 import Header from './Header'
 import Footer from "./Footer";
 import Suites from "./Suites";
 import SuitesProvider from "./SuitesProvider";
-import Logs from "./Logs";
 import Main from "./Main";
-import {CartContext} from "./Contexts";
+import Placeholder from "./Placeholder";
+
 
 
 class Index extends React.Component {
@@ -25,21 +22,18 @@ class Index extends React.Component {
     * 目录页       /suite/:suite/:dir
     * */
     render() {
-        return <App>
+        return <Placeholder>
             <Header/>
-            <CartContext>
+            <Main>
                 <SuitesProvider>
                     <Switch>
-                        <Route path="/:suite/tree/:dir" component={Directory}/>
-                        <Route path="/:suite/clob/:dir" component={File}/>
-                        <Route path="/:suite/logs" component={Logs}/>
                         <Route path="/:suite" component={Suite}/>
                         <Route path="/" component={Suites}/>
                     </Switch>
                 </SuitesProvider>
-            </CartContext>
+            </Main>
             <Footer/>
-        </App>
+        </Placeholder>
     }
 }
 

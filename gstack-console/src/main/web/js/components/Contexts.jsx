@@ -23,10 +23,12 @@ import {
 } from 'semantic-ui-react'
 import Icon from "./Icon";
 import Main from "./Main";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import CartItem from "./CartItem";
 import CartItemList from "./CartItemList";
 import VisibleCartItems from "./VisibleCartItems";
+import ExecuteButton from "./ExecuteButton";
+import CartExecuteButton from "./CartExecuteButton";
 
 const notifyRef = React.createRef()
 
@@ -125,80 +127,28 @@ class CartComponent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {visible: false}
+        this.unmounted = false
     }
 
     open() {
-        this.setState({visible: true})
+        this.unmounted || this.setState({visible: true})
     }
 
     close() {
-        this.setState({visible: false})
+        console.log('close:' + this.unmounted)
+        this.unmounted || this.setState({visible: false})
     }
 
     toggle() {
-        this.setState({visible: !this.state.visible})
+        this.unmounted || this.setState({visible: !this.state.visible})
     }
 
+    componentWillUnmount() {
+        this.unmounted = true
+    }
     render() {
         const {visible} = this.state
-        const items = [
-            {
-                title: 'suite1',
-                type: 'suite',
-                href: '#suite1'
-            },
-            {
-                title: 'dir',
-                type: 'dir',
-                href: '#dir',
-                labels: [
-                    {
-                        title: 'suite1',
-                        type: 'suite',
-                        href: '#suite1'
-                    },
-                ]
-            },
-            {
-                title: 'file',
-                type: 'file',
-                href: '#file',
-                labels: [
-                    {
-                        title: 'suite1',
-                        type: 'suite',
-                        href: '#suite1'
-                    },
-                    {
-                        title: 'dir',
-                        type: 'dir',
-                        href: '#dir',
-                    },
-                ]
-            },
-            {
-                title: 'scenario',
-                type: 'scenario',
-                href: '#scenario',
-                labels: [
-                    {
-                        title: 'suite1',
-                        type: 'suite',
-                        href: '#suite1'
-                    },
-                    {
-                        title: 'dir',
-                        type: 'dir',
-                        href: '#dir',
-                    },
-                    {
-                        title: 'file',
-                        type: 'file',
-                        href: '#file',
-                    },
-                ]
-            },
-        ]
+        const {suite} = this.props
         return <Sidebar.Pushable as={Main}>
             <Sidebar
                 as={Segment}
@@ -212,10 +162,10 @@ class CartComponent extends React.Component {
             >
                 <CartMenu/>
                 <Item.Group divided>
-                    <VisibleCartItems/>
+                    <VisibleCartItems suite={suite}/>
                 </Item.Group>
                 <Divider/>
-                <Button basic><Icon name="play"/></Button>
+                <CartExecuteButton suite={suite} />
 
             </Sidebar>
 
@@ -236,7 +186,8 @@ export class CartEntry extends React.Component {
 
 export class CartContext extends React.Component {
     render() {
-        return <CartComponent ref={cartRef}>
+        const {suite} = this.props
+        return <CartComponent ref={cartRef} suite={suite}>
             {this.props.children}
         </CartComponent>
     }

@@ -5,12 +5,13 @@ import ResultsProvider from "./ResultsProvider";
 import {Link} from "react-router-dom";
 import {withRouter} from 'react-router-dom'
 import VisibleResults from "./VisibleResults";
+import Placeholder from "./Placeholder";
 
 class Logs extends React.Component {
 
     render() {
         const {match: {params: {suite}}} = this.props
-        return <Main>
+        return <Placeholder>
             <Breadcrumb size="huge">
                 <Link to={`/${suite}`} className="section"><b>{suite}</b></Link>
                 <Breadcrumb.Divider>/</Breadcrumb.Divider>
@@ -22,7 +23,7 @@ class Logs extends React.Component {
                 <Divider hidden/>
             </ResultsProvider>
 
-        </Main>
+        </Placeholder>
     }
 }
 

@@ -42,12 +42,18 @@ const results = (state = {list: null}, action) => {
     }
 }
 
-const cart = (state = {list: []}, action) => {
+const cart = (state = {}, action) => {
+    const {suite} = action
+    let list = state[suite] ? state[suite].list || [] : []
     switch (action.type) {
         case 'ADD_TO_CART':
-            return {list: [...state.list, action.item]}
+            let stateInc = {}
+            stateInc[suite] = {list: [...list, action.item]}
+            return Object.assign({}, state, stateInc)
         case 'REMOVE_FROM_CART':
-            return {list: state.list.filter(item => item.key !== action.key)}
+            let stateDec = {}
+            stateDec[suite] = {list: list.filter(item => item.key !== action.key)}
+            return Object.assign({}, state, stateDec)
         default:
             return state
     }

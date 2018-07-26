@@ -7,7 +7,7 @@ const mapStateToProps = (state, props) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        remove: key => dispatch(removeFromCart(key))
+        remove: (suite, key) => dispatch(removeFromCart(suite, key))
     }
 }
 
@@ -15,8 +15,8 @@ class RemoveFromCart extends React.Component {
 
     onClick(e) {
         e.preventDefault()
-        const {item: {key}, remove} = this.props
-        remove(key)
+        const {item: {key}, suite, remove} = this.props
+        remove(suite, key)
     }
 
     render() {

@@ -7,7 +7,7 @@ import RemoveFromCart from "./RemoveFromCart";
 
 class CartItem extends React.Component {
     render() {
-        const {item: {type, title, href, key, labels = []}} = this.props
+        const {item: {type, title, href, key, labels = [], option: {suite}}} = this.props
         const icons = {
             suite: 'box',
             folder: 'folder',
@@ -18,7 +18,7 @@ class CartItem extends React.Component {
             <Item.Content>
                 <Item.Meta>
                     <div className="right floated hover show">
-                        <RemoveFromCart className="link" item={{key}}>
+                        <RemoveFromCart className="link" item={{key}} suite={suite}>
                             <Icon name="trash"/>
                         </RemoveFromCart>
                     </div>

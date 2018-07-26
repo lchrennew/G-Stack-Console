@@ -35,10 +35,39 @@ public class Result {
     }
 
     public Result(Suite suite, String shell, String report, Boolean succeeded, String output) {
-        this.suite = suite;
+        this.setSuite(suite);
+        this.setShell(shell);
+        this.setReport(report);
+        this.setSucceeded(succeeded);
+        this.setOutput(output);
+    }
+
+    public Result(String shell, Suite suite) {
         this.shell = shell;
+        this.suite = suite;
+    }
+
+    public void setShell(String shell) {
+        this.shell = shell;
+    }
+
+
+    public void setReport(String report) {
         this.report = report;
+    }
+
+
+    public void setSucceeded(Boolean succeeded) {
         this.succeeded = succeeded;
+    }
+
+
+    public void setOutput(String output) {
         this.output = output;
+    }
+
+
+    public void setSuite(Suite suite) {
+        this.suite = suite;
     }
 }

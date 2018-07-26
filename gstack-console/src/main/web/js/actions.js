@@ -132,10 +132,10 @@ const printOutput = (uuid, onPrint, onEnd) => {
     })
 }
 
-const _executeScenario = (suite, path) => (onStart, onPrint, onEnd) => async dispatch => {
+const _execute = (suite, paths = []) => (onStart, onPrint, onEnd) => async dispatch => {
     onStart && onStart()
     let response = await api(`suites/${suite}/execute`,
-        json({suite, files: [path]},
+        json({suite, files: paths},
             {credentials: 'include'})
     )(dispatch)
     if (response.ok) {
@@ -149,13 +149,13 @@ const _executeScenario = (suite, path) => (onStart, onPrint, onEnd) => async dis
 }
 
 
-export const executeScenario =
-    (suite, path) =>
+export const execute =
+    (suite, paths) =>
         (onStart, onPrint, onEnd) =>
             (dispatch, getState) =>
                 dispatch(
-                    _executeScenario
-                    (suite, path)
+                    _execute
+                    (suite, paths)
                     (onStart, onPrint, onEnd))
 
 
@@ -200,18 +200,22 @@ export const fetchResults = suite => (dispatch, getState) => {
  ***************************/
 let cartKey = 0
 export const addToCart = item => dispatch => {
-    let {title, href, type, path, labels} = item
+    const {title, href, type, path, labels, option} = item
+    const {suite} = option
     return dispatch({
         type: 'ADD_TO_CART',
+        suite,
         item: {
-            title, href, type, path, labels, key: cartKey++
+            title, href, type, path, labels, option, key: cartKey++
         }
     })
 }
 
-export const removeFromCart = key => dispatch => {
+export const removeFromCart = (suite, key) => dispatch => {
     return dispatch({
         type: 'REMOVE_FROM_CART',
-        key
+        key,
+        suite,
     })
 }
+

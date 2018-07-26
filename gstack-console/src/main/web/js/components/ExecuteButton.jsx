@@ -1,15 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {executeScenario} from "../actions"
-import {notify, openShell, closeShell, printShell} from "./Contexts";
+import {execute} from "../actions"
+import {notify, openShell, printShell} from "./Contexts";
 import Icon from "./Icon";
 
 const mapDispatchToProps = dispatch => ({
     executeScenario:
-        (suite, path) =>
+        (suite, paths = []) =>
             (onStart, onPrint, onEnd) =>
                 dispatch(
-                    executeScenario(suite, path)(onStart, onPrint, onEnd)),
+                    execute(suite, paths)(onStart, onPrint, onEnd)),
 })
 
 const mapStateToProps = (state, props) => ({})
@@ -38,13 +38,14 @@ class ExecuteButton extends React.Component {
     }
     execute(e) {
         e.preventDefault();
-        let {suite, executeScenario, path = ''} = this.props
-        executeScenario(suite, path)
-        (
-            this.onStart.bind(this),
-            this.onPrint.bind(this),
-            this.onEnd.bind(this)
-        )
+        const {suite, executeScenario, paths = [], path = ''} = this.props
+        if ((paths && paths.length) || path != null)
+            executeScenario(suite, path ? [path] : paths)
+            (
+                this.onStart.bind(this),
+                this.onPrint.bind(this),
+                this.onEnd.bind(this)
+            )
     }
 
     render() {

@@ -1,7 +1,7 @@
 import React from 'react'
 import Icon from "./Icon";
 import {withRouter} from "react-router-dom";
-// import {executeScenario} from "../actions";
+// import {execute} from "../actions";
 import ExecuteButton from "./ExecuteButton";
 import Tags from "./Tags";
 import {Table} from 'semantic-ui-react'
@@ -9,7 +9,7 @@ import AddToCart from "./AddToCart";
 //
 // const mapDispatchToProps = dispatch => {
 //     return {
-//         executeScenario: (suite, path) => dispatch(executeScenario(suite, path)),
+//         execute: (suite, path) => dispatch(execute(suite, path)),
 //     }
 // }
 //
@@ -43,7 +43,7 @@ class ScenarioItem extends React.Component {
             href: this.props.location.pathname,
             option: {
                 suite,
-                path: this.buildLink([]),
+                path,
             },
             type: 'scenario',
             labels: path.lastIndexOf('/') < 0 ?
@@ -74,7 +74,7 @@ class ScenarioItem extends React.Component {
             <Table.Cell className="content">{title}</Table.Cell>
             <Table.Cell className="message"><Tags tags={tags}/></Table.Cell>
             <Table.Cell className="actions">
-                <ExecuteButton suite={suite} path={this.buildLink()} title={`场景:${title}`}/>
+                <ExecuteButton suite={suite} path={path} title={`场景:${title}`}/>
                 <AddToCart className="link"
                            item={item}
                 >

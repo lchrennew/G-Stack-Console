@@ -2,7 +2,6 @@ package chun.li.GStack.Console.api.controllers;
 
 import chun.li.GStack.Console.api.ExecuteOptions;
 import chun.li.GStack.Console.api.domain.Result;
-import chun.li.GStack.Console.api.domain.Suite;
 import chun.li.GStack.Console.api.services.ResultService;
 import chun.li.GStack.Console.api.services.SuiteService;
 import chun.li.GStack.SuiteParser.SpecFile;
@@ -21,7 +20,6 @@ import java.util.regex.Pattern;
 
 import static java.lang.Runtime.getRuntime;
 import static java.lang.String.join;
-import static java.util.Arrays.asList;
 import static java.util.UUID.randomUUID;
 import static org.apache.calcite.linq4j.Linq4j.asEnumerable;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -31,7 +29,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RequestMapping(value = "/")
 public class SpecController {
 
-    final static Pattern reportDate = Pattern.compile("\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-4])\\.[0-6]\\d\\.[0-6]\\d");
+    private final static Pattern reportDate = Pattern.compile("\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01]) ([01]\\d|2[0-4])\\.[0-6]\\d\\.[0-6]\\d");
     private final SuiteService suiteService;
     private final ResultService resultService;
     private final SimpMessagingTemplate messagingTemplate;
@@ -59,32 +57,25 @@ public class SpecController {
         return SpecIndexer.buildIndex(Paths.get(workspace, specs).toString(), suite);
     }
 
-
     @RequestMapping(path = "suites/{suite}/execute", method = POST)
     @ResponseStatus(code = HttpStatus.OK)
     @ResponseBody
     UUID execute(
             @PathVariable String suite,
             @RequestBody ExecuteOptions options) {
-        return execute(suite, options.files, options.tags);
+        UUID uuid = randomUUID();
+        execute(uuid, suite, options.files, options.tags);
+        return uuid;
     }
 
 
-    @RequestMapping(path = "suites/{suite}/execute", method = GET)
-    @ResponseStatus(code = HttpStatus.OK)
-    @ResponseBody
-    private UUID execute(
-            @PathVariable String suite,
-            @RequestParam(value = "file", required = false) String[] files,
-            @RequestParam(value = "tags", required = false) String tags) {
-        UUID uuid = randomUUID();
-        files = asEnumerable(files)
-                .select(
-                        file -> this.normalizeFile(suite, file))
-                .toList()
-                .toArray(new String[0]);
-        executeShellAsync(suite, getShell(files, tags), uuid);
-        return uuid;
+    private void execute(UUID uuid, String suite, String[] files, String tags) {
+        executeShellAsync(
+                suite,
+                getShell(
+                        asEnumerable(files)
+                                .select(file -> this.normalizeFile(suite, file))
+                                .toList(), tags), uuid);
     }
 
     private static final Pattern fileWithLn = Pattern.compile("(?<file>.*):(?<ln>\\d+)$");
@@ -92,7 +83,7 @@ public class SpecController {
     private String normalizeFile(String suite, String file) {
         Matcher matcher = fileWithLn.matcher(file);
         if (matcher.find()) {
-            return String.join(
+            return join(
                     ":",
                     Paths.get(specs, suite, matcher.group("file")).toString(),
                     matcher.group("ln"));
@@ -114,48 +105,56 @@ public class SpecController {
                 .start();
     }
 
-    private void executeShell(String suite, String shell, UUID uuid, OnShellOutput onShellOutput, OnShellEnd onShellEnd) {
+    private int executeShell(String suite, String shell, UUID uuid, OnShellOutput onShellOutput, OnShellEnd onShellEnd) {
+        Result result = new Result(shell, suiteService.findByTitle(suite));
+
         Runtime runtime = getRuntime();
+        String[] shellArgs = new String[]{"cmd", "/C", shell};
+        Process process = null;
         try {
-            String[] shellArgs = new String[]{"cmd", "/C", shell};
-            Process process = runtime.exec(shellArgs, null, new File(workspace));
-            System.out.println(String.join(" ", shellArgs));
-            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), shellCharset));
-            StringBuilder output = new StringBuilder();
-            String line;
-            String report = null;
-            while ((line = br.readLine()) != null) {
-                onShellOutput.run(uuid, line);
-                if (line.startsWith("Successfully generated html-report to =>")) {
-                    Matcher matcher = reportDate.matcher(line);
-                    if (matcher.find()) {
-                        report = matcher.group();
-                    }
-                }
-                output.append(line).append("\n");
-            }
-
-            Suite suite1 = suiteService.findByTitle(suite);
-            Boolean succeeded = process.exitValue() == 0;
-            resultService.save(
-                    new Result(
-                            suite1,
-                            shell,
-                            report,
-                            succeeded,
-                            output.toString()));
-
-
-            onShellEnd.run(uuid, process.exitValue());
+            process = runtime.exec(shellArgs, null, new File(workspace));
+            trackShell(process, uuid, result, onShellOutput, onShellEnd);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        resultService.save(result);
+        return process.exitValue();
     }
 
-    private String getShell(String[] files, String tags) {
+    private void trackShell(
+            Process process,
+            UUID uuid,
+            Result result,
+            OnShellOutput onShellOutput,
+            OnShellEnd onShellEnd)
+            throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream(), shellCharset));
+        StringBuilder output = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            onShellOutput.run(uuid, line);
+            tryExtractReport(result, line);
+            output.append(line).append("\n");
+        }
+        if (onShellEnd != null)
+            onShellEnd.run(uuid, process.exitValue());
+        result.setSucceeded(process.exitValue() == 0);
+        result.setOutput(output.toString());
+    }
+
+    private void tryExtractReport(Result result, String line) {
+        if (line.startsWith("Successfully generated html-report to =>")) {
+            Matcher matcher = reportDate.matcher(line);
+            if (matcher.find()) {
+                result.setReport(matcher.group());
+            }
+        }
+    }
+
+    private String getShell(Iterable<String> files, String tags) {
         List<String> cmds = new ArrayList<>();
         cmds.add("gauge run");
-        cmds.addAll(asList(files));
+        cmds.addAll(asEnumerable(files).toList());
         if (tags != null) {
             cmds.add("--tags");
             cmds.add(String.format("\"%s\"", tags));
@@ -180,7 +179,6 @@ public class SpecController {
     @FunctionalInterface
     public interface OnShellOutput {
         public abstract void run(UUID uuid, String output);
-
     }
 
     @FunctionalInterface
