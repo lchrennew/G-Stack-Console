@@ -4,6 +4,7 @@ import {Card} from 'semantic-ui-react'
 import ExecuteButton from "./ExecuteButton";
 import Icon from "./Icon";
 import {withRouter} from 'react-router-dom'
+import LogsEntry from "./LogsEntry";
 
 
 class SuiteItem extends React.Component {
@@ -16,9 +17,9 @@ class SuiteItem extends React.Component {
             </Card.Content>
             <Card.Content extra>
                 <div className="ui two buttons">
-                    <Link to={`${title}/logs`} className="ui basic large button">
+                    <LogsEntry className="ui basic large button" suite={title}>
                         <Icon name="clock" size={24}/>
-                    </Link>
+                    </LogsEntry>
                     <ExecuteButton suite={title} size={24} className="ui basic large button"
                                    title={`Suite:${title}`}/>
                 </div>

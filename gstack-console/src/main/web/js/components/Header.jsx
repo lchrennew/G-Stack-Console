@@ -6,19 +6,23 @@ import {
     Container,
     Dropdown,
     Image,
-    Menu, Sticky,
+    Menu,
 } from 'semantic-ui-react'
 import Icon from "./Icon";
 import {CartEntry} from "./Contexts";
-import File from "./File";
-import Logs from "./Logs";
-import Directory from "./Directory";
+import Placeholder from "./Placeholder";
+import LogsEntry from "./LogsEntry";
 
-class CartMenuItem extends React.Component {
+class SuiteMenuItems extends React.Component {
     render() {
-        return  <CartEntry className="item">
-            <Icon name="shopping-cart"/>
-        </CartEntry>
+        return <Placeholder>
+            <CartEntry className="item">
+                <Icon name="shopping-cart"/>
+            </CartEntry>
+            <LogsEntry className="item">
+                <Icon name="clock"/>
+            </LogsEntry>
+        </Placeholder>
     }
 }
 
@@ -33,7 +37,7 @@ class Header extends React.Component {
                 <Link className="item" to="/">Home</Link>
                 <Switch>
                     <Route path="/:suite"
-                           component={CartMenuItem}/>
+                           component={SuiteMenuItems}/>
                 </Switch>
             </Container>
         </Menu>
