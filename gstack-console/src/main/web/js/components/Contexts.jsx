@@ -29,6 +29,7 @@ import CartItemList from "./CartItemList";
 import VisibleCartItems from "./VisibleCartItems";
 import ExecuteButton from "./ExecuteButton";
 import CartExecuteButton from "./CartExecuteButton";
+import Placeholder from "./Placeholder";
 
 const notifyRef = React.createRef()
 
@@ -117,38 +118,42 @@ class CartMenu extends React.Component {
     }
 }
 
-const cartRef = React.createRef()
+class CartSidebar extends React.Component {
+    render() {
+        const {suite} = this.props
+        return <Placeholder>
+            <CartMenu/>
+            <Item.Group divided>
+                <VisibleCartItems suite={suite}/>
+            </Item.Group>
+            <Divider/>
+            <CartExecuteButton suite={suite}/>
+        </Placeholder>
+    }
+}
 
-export const openCart = () => cartRef.current && cartRef.current.open()
-export const toggleCart = () => cartRef.current && cartRef.current.toggle()
+const sidebarRef = React.createRef()
+export const openSidebar = sidebarRef.current && sidebarRef.current.open(sidebar)
 
-
-class CartComponent extends React.Component {
+class SidebarComponent extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {visible: false}
-        this.unmounted = false
+        this.state = {visible: false, component: null}
     }
 
-    open() {
-        this.unmounted || this.setState({visible: true})
+    open(component) {
+        this.setState({visible: true, component})
     }
 
     close() {
-        console.log('close:' + this.unmounted)
-        this.unmounted || this.setState({visible: false})
+        this.setState({visible: false})
     }
 
     toggle() {
-        this.unmounted || this.setState({visible: !this.state.visible})
-    }
-
-    componentWillUnmount() {
-        this.unmounted = true
+        this.setState({visible: !this.state.visible})
     }
     render() {
         const {visible} = this.state
-        const {suite} = this.props
         return <Sidebar.Pushable as={Main}>
             <Sidebar
                 as={Segment}
@@ -160,13 +165,7 @@ class CartComponent extends React.Component {
                 duration={1000}
                 className="cart-bar"
             >
-                <CartMenu/>
-                <Item.Group divided>
-                    <VisibleCartItems suite={suite}/>
-                </Item.Group>
-                <Divider/>
-                <CartExecuteButton suite={suite} />
-
+                {this.state.component}
             </Sidebar>
 
             <Sidebar.Pusher>
@@ -176,20 +175,12 @@ class CartComponent extends React.Component {
     }
 }
 
-export class CartEntry extends React.Component {
-    render() {
-        return <a {...this.props} onClick={openCart}>
-            {this.props.children}
-        </a>
-    }
-}
-
-export class CartContext extends React.Component {
+export class SidebarContext extends React.Component {
     render() {
         const {suite} = this.props
-        return <CartComponent ref={cartRef} suite={suite}>
+        return <SidebarComponent ref={sidebarRef} suite={suite}>
             {this.props.children}
-        </CartComponent>
+        </SidebarComponent>
     }
 }
 

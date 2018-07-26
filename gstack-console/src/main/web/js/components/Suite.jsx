@@ -3,7 +3,7 @@ import VisibleDir from "./VisibleDir";
 import IndexProvider from "./IndexProvider";
 import {Divider} from "semantic-ui-react";
 import {Route, Switch} from "react-router-dom";
-import {CartContext} from "./Contexts";
+import {SidebarContext} from "./Contexts";
 import Placeholder from "./Placeholder";
 import File from "./File";
 import Logs from "./Logs";
@@ -27,7 +27,7 @@ class Suite extends React.Component {
 
     render() {
         let {match: {params: {suite}}, location: {pathname}} = this.props
-        return <CartContext suite={suite}>
+        return <SidebarContext suite={suite}>
             <SuiteBreadcrumb suite={suite} dir={pathname}/>
             <Divider hidden/>
             <IndexProvider>
@@ -39,7 +39,7 @@ class Suite extends React.Component {
                 </Switch>
             </IndexProvider>
             <Divider hidden/>
-        </CartContext>
+        </SidebarContext>
 
     }
 }

@@ -1,6 +1,8 @@
 import React from "react"
 import VisibleDir from "./VisibleDir";
 import Placeholder from "./Placeholder";
+import {Label} from "semantic-ui-react";
+import Icon from "./Icon";
 
 class Directory extends React.Component {
 
@@ -14,7 +16,11 @@ class Directory extends React.Component {
     render() {
         return <Placeholder>
                 <div className="commit-tease">
-                    <div className="mr-auto">test</div>
+                    <div className="mr-auto">
+                        <Label>
+                            <Icon name="tag"/>
+                        </Label>
+                    </div>
                 </div>
                 <div className="file-wrap">
                     <VisibleDir dir={this.getDir()}/>
