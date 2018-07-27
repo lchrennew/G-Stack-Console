@@ -12,6 +12,7 @@ import Icon from "./Icon";
 import Placeholder from "./Placeholder";
 import LogsEntry from "./LogsEntry";
 import CartEntry from "./CartEntry";
+import FilterEntry from "./FilterEntry";
 
 class SuiteMenuItems extends React.Component {
     render() {
@@ -22,6 +23,9 @@ class SuiteMenuItems extends React.Component {
             <LogsEntry className="item">
                 <Icon name="clock"/>
             </LogsEntry>
+            <FilterEntry className="item">
+                <Icon name="filter"/>
+            </FilterEntry>
         </Placeholder>
     }
 }
