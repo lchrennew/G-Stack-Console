@@ -5,7 +5,7 @@ import React from 'react'
 class TagsFilterIntro extends React.Component {
     render() {
         let {tags} = this.props
-        return <div className="ui popup visible bottom left fluid" style={{position: 'relative'}}>
+        return <div className="ui popup visible bottom left fluid" style={{position: 'static'}}>
             <Header>Available tags</Header>
             <Label.Group>
                 {

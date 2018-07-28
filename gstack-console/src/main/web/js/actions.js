@@ -132,10 +132,10 @@ const printOutput = (uuid, onPrint, onEnd) => {
     })
 }
 
-const _execute = (suite, paths = []) => (onStart, onPrint, onEnd) => async dispatch => {
+const _execute = (suite, paths = [], tags = '') => (onStart, onPrint, onEnd) => async dispatch => {
     onStart && onStart()
     let response = await api(`suites/${suite}/execute`,
-        json({suite, files: paths},
+        json({suite, files: paths, tags},
             {credentials: 'include'})
     )(dispatch)
     if (response.ok) {
@@ -155,7 +155,7 @@ export const execute =
             (dispatch, getState) =>
                 dispatch(
                     _execute
-                    (suite, paths)
+                    (suite, paths, getState().filters.filter)
                     (onStart, onPrint, onEnd))
 
 
