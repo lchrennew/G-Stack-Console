@@ -10,14 +10,8 @@ const json = (body, opt) => Object.assign({}, opt, {
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(body),
 })
-// TODO: addToCart
-// TODO: execCart
-// TODO: removeFromCart
-// TODO: clearCart
 
-// TODO: addSuite
-// TODO: fetchSuites
-// TODO: receiveSuites
+// TODO: clearCart
 // TODO: removeSuite
 export const executing = (execid) => ({
     type: 'EXECUTING',
