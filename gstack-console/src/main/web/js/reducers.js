@@ -59,4 +59,14 @@ const cart = (state = {}, action) => {
     }
 }
 
-export default combineReducers({index, suites, results, cart})
+const filters = (state = {filter: ''}, action) => {
+    const {filter} = action
+    switch (action.type) {
+        case 'SET_FILTER':
+            return {filter}
+        default:
+            return state
+    }
+}
+
+export default combineReducers({index, suites, results, cart, filters})

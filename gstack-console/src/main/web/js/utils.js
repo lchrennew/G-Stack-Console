@@ -163,10 +163,12 @@ export class FilterString {
                 }
             }
         }
-        return tree
+
+        return stack.length || not ? null : tree
     }
 
     static compile(tree) {
+        if (!tree) return () => true
         let stack = [tree]
         let queue = [tree]
         while (queue.length) {
@@ -200,7 +202,8 @@ export class FilterString {
                     node.filter = (tags = []) => !node.left.filter(tags)
                     break
                 default:
-                    throw node.type
+                    node.filter = () => true
+                    break
             }
         }
 
@@ -208,7 +211,7 @@ export class FilterString {
     }
 
     constructor(tagString) {
-        this.filter = compile(parse(tagString))
+        this.filter = FilterString.compile(FilterString.parse('' + tagString))
     }
 }
 

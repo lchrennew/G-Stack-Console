@@ -219,3 +219,9 @@ export const removeFromCart = (suite, key) => dispatch => {
     })
 }
 
+export const setFilter = filter => dispatch => {
+    return dispatch({
+        type: 'SET_FILTER',
+        filter,
+    })
+}

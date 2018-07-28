@@ -11,16 +11,18 @@ class ScenarioList extends React.Component {
 
     render() {
         let {spec} = this.props
-        if (spec)
+        if (spec){
+            let {items} = this.props
             return <Table size="small" basic="very" className="files" selectable>
                 <Table.Body>
                 <ParentDirItem visible={true} />
                 {
-                    spec.scenarios.map(({title, tags, lineNumber}, i) => (
-                        <ScenarioItem {...{title, tags, lineNumber}} key={i}/>))
+                    items.map(({title, tags, lineNumber}, i) => (
+                        <ScenarioItem {...{title, tags, lineNumber, spec}} key={i}/>))
                 }
                 </Table.Body>
             </Table>
+        }
         else return <div>Loading...</div>
     }
 }

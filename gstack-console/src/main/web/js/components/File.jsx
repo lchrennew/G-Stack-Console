@@ -1,9 +1,10 @@
 import React from "react";
-import ScenarioList from "./ScenarioList";
 import {SpecTitle} from "./SpecProvider";
 import Placeholder from "./Placeholder";
+import VisibleScenarios from "./VisibleScenarios";
 
 
+// TODO: filter
 class File extends React.Component {
 
     getDir() {
@@ -21,7 +22,7 @@ class File extends React.Component {
                     </div>
                 </div>
                 <div className="file-wrap">
-                    <ScenarioList/>
+                    <VisibleScenarios/>
                 </div>
         </Placeholder>
     }

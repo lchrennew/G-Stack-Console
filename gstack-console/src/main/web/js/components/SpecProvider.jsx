@@ -1,6 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from "react-router-dom";
+import Placeholder from "./Placeholder";
+import {Label} from "semantic-ui-react";
+import Tags from "./Tags";
 
 
 const getDir = props => {
@@ -24,8 +27,14 @@ export const withSpec = component => withRouter(connect(mapStateToProps)(compone
 
 class specTitle extends React.Component {
     render() {
-        let {spec: {title}} = this.props
-        return title
+        let {spec: {title, tags}} = this.props
+        return <Placeholder>
+            {title}
+            <Placeholder>              </Placeholder>
+            {
+                tags.length ? <Tags tags={tags}/> : null
+            }
+        </Placeholder>
     }
 }
 

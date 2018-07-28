@@ -155,3 +155,7 @@ table.files tr:hover td.actions a.link {
     background: #fff;
     padding-top: 60px !important;
 }
+
+.text-muted{
+    color: #8a8a8a;
+}

@@ -30,7 +30,7 @@ class DirItem extends React.Component {
     render() {
         // itemtype: folder => /tree/**
         // itemtype: file => /clob/**
-        let {name, itemtype, tags = [], match: {params: {suite}}} = this.props
+        let {name, itemtype, specTags = [], scenarioTags, match: {params: {suite}}} = this.props
         let link = this.getLink(), path = this.buildLink([])
         const item = {
             title: name,
@@ -55,7 +55,9 @@ class DirItem extends React.Component {
         return <Table.Row>
             <Table.Cell scope="row" className="icon"><Icon name={itemtype}/></Table.Cell>
             <Table.Cell className="content"><DirLink to={link} dir={name}/></Table.Cell>
-            <Table.Cell className="message"><Tags tags={tags}/></Table.Cell>
+            <Table.Cell className="message">
+                {itemtype === 'file' ? <Tags tags={specTags}/> : null}
+            </Table.Cell>
             <Table.Cell className="actions">
                 <ExecuteButton suite={suite} path={path} title={`${itemtype}:${name}`}/>
                 <AddToCart className="link"

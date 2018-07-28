@@ -14,7 +14,8 @@ class Dir extends React.Component{
             <Table.Body>
                 <ParentDirItem visible={hasParent}/>
                 {
-                    items.map(({name, itemtype}, i) => (<DirItem {...{name, itemtype}} key={i}/>))
+                    items.map(({name, itemtype, specTags}, i) => (
+                        <DirItem {...{name, itemtype, specTags}} key={i}/>))
                 }
             </Table.Body>
         </Table>
