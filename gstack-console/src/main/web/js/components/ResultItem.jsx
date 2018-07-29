@@ -21,7 +21,7 @@ class ResultItem extends React.Component {
                     <a href={`//localhost:8084/${report}/index.html`} className="link" target="_blank"><Icon name="pie-chart"/></a>
                     <a href="#" className="link" onClick={this.showShell.bind(this)}><Icon name="camera"/></a>
                 </div>
-                <Card.Meta><Icon name="terminal"/> {shell}</Card.Meta>
+                <Card.Meta className="text-overflow-hidden"><Icon name="terminal"/> {shell}</Card.Meta>
             </Card.Content>
         </Card>
     }

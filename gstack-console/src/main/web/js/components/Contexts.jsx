@@ -133,7 +133,7 @@ class SidebarComponent extends React.Component {
                 visible={visible}
                 width='very wide'
                 duration={1000}
-                className="cart-bar"
+                className="side-bar"
             >
                 {this.state.component}
             </Sidebar>
@@ -147,8 +147,7 @@ class SidebarComponent extends React.Component {
 
 export class SidebarContext extends React.Component {
     render() {
-        const {suite} = this.props
-        return <SidebarComponent ref={sidebarRef} suite={suite}>
+        return <SidebarComponent ref={sidebarRef}>
             {this.props.children}
         </SidebarComponent>
     }

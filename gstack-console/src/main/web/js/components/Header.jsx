@@ -1,7 +1,7 @@
 // 页头
 
 import React from 'react'
-import {Link, Route, Switch} from "react-router-dom";
+import {Link, Route, Switch, withRouter} from "react-router-dom";
 import {
     Container,
     Dropdown,
@@ -14,21 +14,20 @@ import LogsEntry from "./LogsEntry";
 import CartEntry from "./CartEntry";
 import FilterEntry from "./FilterEntry";
 
-class SuiteMenuItems extends React.Component {
-    render() {
-        return <Placeholder>
-            <CartEntry className="item">
-                <Icon name="shopping-cart"/>
-            </CartEntry>
-            <LogsEntry className="item">
-                <Icon name="clock"/>
-            </LogsEntry>
-            <FilterEntry className="item">
-                <Icon name="filter"/>
-            </FilterEntry>
-        </Placeholder>
-    }
-}
+const SuiteMenuItems = withRouter(props => {
+    const {match: {params: {suite}}} = props
+    return <Placeholder>
+        <CartEntry className="item" suite={suite}>
+            <Icon name="shopping-cart"/>
+        </CartEntry>
+        <LogsEntry className="item" suite={suite}>
+            <Icon name="clock"/>
+        </LogsEntry>
+        <FilterEntry className="item" suite={suite}>
+            <Icon name="filter"/>
+        </FilterEntry>
+    </Placeholder>
+})
 
 class Header extends React.Component {
     render() {

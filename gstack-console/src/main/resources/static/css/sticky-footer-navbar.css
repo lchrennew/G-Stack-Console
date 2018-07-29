@@ -75,7 +75,6 @@ table.files td.icon {
 
 table.files td.content {
     width: 180px;
-    font-size: 12px;
 }
 
 table.files td.message {
@@ -151,9 +150,16 @@ table.files tr:hover td.actions a.link {
     margin-left: 10px;
 }
 
-.cart-bar {
+.side-bar {
     background: #fff;
-    padding-top: 60px !important;
+    padding-top: 70px !important;
+}
+
+.text-overflow-hidden {
+    line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .text-muted{

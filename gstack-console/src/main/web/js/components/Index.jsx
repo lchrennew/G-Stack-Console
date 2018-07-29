@@ -7,6 +7,7 @@ import Suites from "./Suites";
 import SuitesProvider from "./SuitesProvider";
 import Main from "./Main";
 import Placeholder from "./Placeholder";
+import {SidebarContext} from "./Contexts";
 
 
 
@@ -25,12 +26,14 @@ class Index extends React.Component {
         return <Placeholder>
             <Header/>
             <Main>
-                <SuitesProvider>
-                    <Switch>
-                        <Route path="/:suite" component={Suite}/>
-                        <Route path="/" component={Suites}/>
-                    </Switch>
-                </SuitesProvider>
+                <SidebarContext>
+                    <SuitesProvider>
+                        <Switch>
+                            <Route path="/:suite" component={Suite}/>
+                            <Route path="/" component={Suites}/>
+                        </Switch>
+                    </SuitesProvider>
+                </SidebarContext>
             </Main>
             <Footer/>
         </Placeholder>

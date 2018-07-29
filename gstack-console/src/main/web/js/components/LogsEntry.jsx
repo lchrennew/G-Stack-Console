@@ -1,15 +1,15 @@
 import React from 'react'
 import {Link, withRouter} from "react-router-dom";
+import {openSidebar} from "./Contexts";
+import LogsSidebar from "./LogsSidebar";
 
-class LogsEntry extends React.Component {
-    render() {
-        let {suite, className} = this.props
-        if (!suite)
-            suite = this.props.match.params.suite
-        return <Link to={`/${suite}/logs`} className={className}>
-            {this.props.children}
-        </Link>
-    }
+const openLogs = suite => openSidebar(<LogsSidebar suite={suite}/>)
+
+const LogsEntry = (props) => {
+    let {suite, className} = props
+    return <a className={className} onClick={() => openLogs(suite)}>
+        {props.children}
+    </a>
 }
 
-export default withRouter(LogsEntry)
+export default LogsEntry

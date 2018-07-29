@@ -27,7 +27,7 @@ class Suite extends React.Component {
 
     render() {
         let {match: {params: {suite}}, location: {pathname}} = this.props
-        return <SidebarContext suite={suite}>
+        return <Placeholder>
             <SuiteBreadcrumb suite={suite} dir={pathname}/>
             <Divider hidden/>
             <IndexProvider>
@@ -39,7 +39,7 @@ class Suite extends React.Component {
                 </Switch>
             </IndexProvider>
             <Divider hidden/>
-        </SidebarContext>
+        </Placeholder>
 
     }
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import {fetchResults} from "../actions";
 import {connect} from 'react-redux'
 import {Dimmer, Loader} from "semantic-ui-react";
-import {withRouter} from "react-router-dom";
 
 
 const mapDispatchToProps = dispatch => {
@@ -11,7 +10,7 @@ const mapDispatchToProps = dispatch => {
     }
 }
 const noData = state => state.results.list == null,
-    suiteChanged = (state, props) => state.results.suite !== props.match.params.suite
+    suiteChanged = (state, props) => state.results.suite !== props.suite
 const mapStateToProps = (state, props) => {
     return {
         needShowLoading: noData(state) || suiteChanged(state, props)
@@ -20,7 +19,12 @@ const mapStateToProps = (state, props) => {
 
 class ResultsProvider extends React.Component {
     async componentDidMount() {
-        const {loadResults, match: {params: {suite}}} = this.props
+        const {loadResults, suite} = this.props
+        await loadResults(suite)
+    }
+
+    async componentDidUpdate(){
+        const {loadResults, suite} = this.props
         await loadResults(suite)
     }
 
@@ -37,4 +41,4 @@ class ResultsProvider extends React.Component {
 
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ResultsProvider))
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsProvider)
